@@ -33,7 +33,17 @@ module basic_wall_anchor() {
             wall_anchor_width * 2, 
             wall_anchor_height
         ]);
+        
+        
+        
+    
     }
+    
+        ////
+        
+         translate([0, 17.2, 20])
+            rotate([90, 0, 90])
+            cylinder(d=5, h=wall_anchor_length, center=false, $fn=100);
 }
 
 module frenchfinity_1_0_nut() {
