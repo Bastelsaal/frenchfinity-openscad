@@ -10,6 +10,11 @@ wall_anchor_height = 60;
 wall_anchor_width = 100;
 wall_anchor_depth = 20;
 wall_anchor_bottom_angle = 45;
+wall_anchor_render_screw_holes = true;
+wall_anchor_screw_thread_width = 2;
+wall_anchor_screw_head_height = 2;
+wall_anchor_screw_head_width = 4.3;
+wall_anchor_screw_distance = 30;
 
 /* [Frenchfinity 1.0 slot] */
 frenchfinity_1_0_slot_inner_height = 8.5;
@@ -168,13 +173,38 @@ module wall_anchor_with_nut_cutout_and_text () {
     }
 }
 
+module wall_anchor_screw_hole (x) {
+    thread_depth = wall_anchor_depth - frenchfinity_1_0_slot_total_width_calculated + 2;
+    
+    left(x)
+    up(wall_anchor_height - frenchfinity_1_0_slot_distance_top - (frenchfinity_1_0_slot_outer_height / 2))
+    left(wall_anchor_width / -2)
+    back(thread_depth -1)
+    xrot(90)
+    union() {
+        cylinder(d=wall_anchor_screw_thread_width, h=thread_depth, center=false, $fn=100);
+        cylinder(h=wall_anchor_screw_head_height, r1=wall_anchor_screw_head_width, r2=wall_anchor_screw_thread_width);
+    }
+    
+}
+
+module wall_anchor_with_nut_cutout_and_text_and_holes () {
+    if (wall_anchor_render_screw_holes) {
+        screw_holes = floor(wall_anchor_width / wall_anchor_screw_distance);
+
+        difference() {
+            wall_anchor_with_nut_cutout_and_text();
+            wall_anchor_screw_hole(0);
+            for (i = [0 : screw_holes-1]) {
+                wall_anchor_screw_hole(wall_anchor_screw_distance * i);
+                wall_anchor_screw_hole(wall_anchor_screw_distance * -i);
+            }
+        }
+    } else {
+        wall_anchor_with_nut_cutout_and_text();
+    }
+}
+
 
 /// DEV
-
-
-
-
-// TODO: font
-// TODO: screw holes
-
-wall_anchor_with_nut_cutout_and_text();
+wall_anchor_with_nut_cutout_and_text_and_holes();
