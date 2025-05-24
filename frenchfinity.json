@@ -1,0 +1,29 @@
+{
+    "fileFormatVersion": "1",
+    "parameterSets": {
+        "New set 1": "",
+        "New set 2": {
+            "feature": "french_plate",
+            "filament_hole_size": "1.7",
+            "frenchfinity_1_0_slot_distance_top": "7.3940000000000001",
+            "frenchfinity_1_0_slot_inner_height": "8.5",
+            "frenchfinity_1_0_slot_inner_width": "4.5",
+            "frenchfinity_1_0_slot_outer_height": "6.5",
+            "frenchfinity_1_0_slot_outer_width": "5.5999999999999996",
+            "render_text": "true",
+            "text_depth": "1",
+            "text_size": "5",
+            "version": "1",
+            "version_prefix": "scad",
+            "wall_anchor_bottom_angle": "45",
+            "wall_anchor_depth": "20",
+            "wall_anchor_height": "60",
+            "wall_anchor_render_screw_holes": "true",
+            "wall_anchor_screw_distance": "30",
+            "wall_anchor_screw_head_height": "2",
+            "wall_anchor_screw_head_width": "4.2999999999999998",
+            "wall_anchor_screw_thread_width": "2",
+            "wall_anchor_width": "100"
+        }
+    }
+}
