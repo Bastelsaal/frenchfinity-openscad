@@ -50,12 +50,12 @@ module wall_anchor_with_nut_cutout () {
 module wall_anchor_with_nut_cutout_and_text () {
     text_box_width = wall_anchor_width / 2;
     text_y         = wall_anchor_height - 22;
-    labels         = [
+    labels         = hintFileName([
         final_version_prefix_calculated,
         str("w", wall_anchor_width),
         str("h", wall_anchor_height),
         str("d", wall_anchor_depth)
-    ];
+    ]);
     
     difference() {
         wall_anchor_with_nut_cutout();

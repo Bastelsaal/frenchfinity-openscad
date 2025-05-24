@@ -35,12 +35,12 @@ module french_plate_with_tongue_and_groove () {
 module french_plate_with_tongue_and_groove_and_text () {
     text_box_width = french_plate_width / 2;
     text_y         = french_plate_height - 30;
-    labels         = [
+    labels         = hintFileName([
         final_version_prefix_calculated,
         str("w", french_plate_width),
         str("h", french_plate_height),
         str("d", french_plate_depth)
-    ];
+    ]);
     
     difference() {
         french_plate_with_tongue_and_groove();
