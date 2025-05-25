@@ -1,4 +1,4 @@
-module frenchfinity_1_0_nut(include_filament_hole) {
+module frenchfinity_1_0_nut(width, include_filament_hole) {
     module filament_hole () {
         yrot(90)
         translate([
@@ -7,14 +7,14 @@ module frenchfinity_1_0_nut(include_filament_hole) {
                 frenchfinity_1_0_slot_inner_width +
                 frenchfinity_1_0_slot_outer_width
             ),
-            wall_anchor_width / 2
+            width / 2
         ])
         cylinder(d=filament_hole_size, h=wall_anchor_width, center=true, $fn=100);
     }
     
     module basic_nut () {
         cube([
-            wall_anchor_width,
+            width,
             frenchfinity_1_0_slot_outer_width,
             frenchfinity_1_0_slot_outer_height     ,
         ]);       
@@ -27,7 +27,7 @@ module frenchfinity_1_0_nut(include_filament_hole) {
             ) / 2
         ])
         cube([
-            wall_anchor_width,
+            width,
             frenchfinity_1_0_slot_inner_width,
             frenchfinity_1_0_slot_inner_height     ,
         ]);
@@ -46,7 +46,7 @@ module frenchfinity_1_0_nut(include_filament_hole) {
     }
 }
 
-module nut(include_filament_hole) {
+module nut(width, include_filament_hole) {
     // TODO: Add support for different nuts
-    frenchfinity_1_0_nut(include_filament_hole);
+    frenchfinity_1_0_nut(width, include_filament_hole);
 }

@@ -15,7 +15,7 @@ module screw_plate_with_groove () {
 
     module local_groove() {
         translate([0, 0, y])
-            nut(true);
+            nut(screw_plate_width, true);
     }
 
     difference() {

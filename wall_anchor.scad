@@ -38,7 +38,7 @@ module wall_anchor_with_nut_cutout () {
         ])
         mirror([0, 1, 0])
         translate([0, -wall_anchor_depth, 0])
-            nut(true);
+            nut(wall_anchor_width, true);
     }
 
     difference() {

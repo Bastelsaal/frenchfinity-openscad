@@ -90,7 +90,6 @@ render_selected_feature();
 
 
 // TODO: hint in readme for filename proposal
-// TODO: screw plate
 // TODO: Modul für screw positiv
-// TODO: nut width fixen
 // TODO: hinweiß auf bugreports in makerworld und readme
+// TODO: Tests und autobuild auf github?

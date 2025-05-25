@@ -15,12 +15,12 @@ module french_plate_with_tongue_and_groove () {
 
     module local_groove() {
         translate([0, 0, y])
-            nut(true);
+            nut(french_plate_width, true);
     }
 
     module local_tongue() {
         translate([0, french_plate_depth, y])
-            nut(false);
+            nut(french_plate_width, false);
     }
 
     union () {
