@@ -5,6 +5,12 @@ on: https://makerworld.com/en/models/1448891-frenchfinity-2-0-customizable
 
 I will add support for mor features the next days and weeks, so stay tuned!
 
+## Issues and feature requests
+
+If you have any issues or feature requests, please open an issue on
+the [GitHub repository](https://github.com/Bastelsaal/frenchfinity-openscad/issues).
+I also welcome pull requests if you want to contribute to the project.
+
 ## Filenames
 
 Like in the original version of Frenchfinity the OpenSCAD version also generates a log output containing a file name
