@@ -21,13 +21,13 @@ fi
 mkdir -p "$(dirname "$output_file")"
 
 process_file() {
-    local file="$1"
+    local file="../src/$1"
     while IFS= read -r line || [[ -n "$line" ]]; do
         if [[ "$line" =~ include\ *\<(.+\.scad)\> ]]; then
             include_file="${BASH_REMATCH[1]}"
 
-            if [[ "$include_file" == lib/BOSL2/* ]]; then
-                echo "include <${include_file#lib/}>"
+            if [[ "$include_file" == ../lib/BOSL2/* ]]; then
+                echo "include <${include_file#../lib/}>"
                 continue
             fi
 

@@ -1,4 +1,4 @@
-include <lib/BOSL2/std.scad>
+include <../lib/BOSL2/std.scad>
 
 //
 // Parameters
@@ -88,5 +88,3 @@ module render_selected_feature () {
 }
 
 render_selected_feature();
-
-// TODO: Tests und autobuild auf github?
