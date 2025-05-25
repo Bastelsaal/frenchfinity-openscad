@@ -6,7 +6,7 @@ include <lib/BOSL2/std.scad>
 //
 
 /* [Feature] */
-feature = "wall_anchor"; //[french_plate, wall_anchor]
+feature = "wall_anchor"; //[french_plate, screw_plate, wall_anchor]
 
 /* [Wall anchor] */
 wall_anchor_height = 60;
@@ -14,9 +14,9 @@ wall_anchor_width = 100;
 wall_anchor_depth = 20;
 wall_anchor_bottom_angle = 45;
 wall_anchor_render_screw_holes = true;
-wall_anchor_screw_thread_width = 2;
+wall_anchor_screw_thread_diameter = 2;
 wall_anchor_screw_head_height = 2;
-wall_anchor_screw_head_width = 4.3;
+wall_anchor_screw_head_diameter = 4.3;
 wall_anchor_screw_distance = 30;
 
 /* [French plate] */
@@ -24,6 +24,14 @@ french_plate_width = 100;
 french_plate_height = 100;
 french_plate_depth = 20;
 
+/* [Screw plate] */
+screw_plate_width = 160;
+screw_plate_height = 100;
+screw_plate_depth = 20;
+screw_plate_screw_thread_diameter = 4;
+screw_plate_screw_head_diameter = 8;
+screw_plate_screw_head_height = 4;
+screw_plate_screw_hole_padding = 40;
 
 /* [Frenchfinity 1.0 slot] */
 frenchfinity_1_0_slot_inner_height = 8.5;
@@ -65,8 +73,8 @@ include <nuts.scad>
 //
 
 include <french_plate.scad>
+include <screw_plate.scad>
 include <wall_anchor.scad>
-
 
 //
 // Selected feature
@@ -74,7 +82,15 @@ include <wall_anchor.scad>
 
 module render_selected_feature () {
     if (feature == "french_plate") feature_french_plate();
+    if (feature == "screw_plate")  feature_screw_plate();
     if (feature == "wall_anchor")  feature_wall_anchor();
 }
 
 render_selected_feature();
+
+
+// TODO: hint in readme for filename proposal
+// TODO: screw plate
+// TODO: Modul für screw positiv
+// TODO: nut width fixen
+// TODO: hinweiß auf bugreports in makerworld und readme

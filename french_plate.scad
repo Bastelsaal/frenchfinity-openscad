@@ -57,5 +57,4 @@ module french_plate_with_tongue_and_groove_and_text () {
 
 module feature_french_plate () {
     french_plate_with_tongue_and_groove_and_text();
-    
 }

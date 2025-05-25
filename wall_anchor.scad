@@ -78,8 +78,8 @@ module wall_anchor_screw_hole (x) {
     back(thread_depth -1)
     xrot(90)
     union() {
-        cylinder(d=wall_anchor_screw_thread_width, h=thread_depth, center=false, $fn=100);
-        cylinder(h=wall_anchor_screw_head_height, r1=wall_anchor_screw_head_width, r2=wall_anchor_screw_thread_width);
+        cylinder(d=wall_anchor_screw_thread_diameter, h=thread_depth, center=false, $fn=100);
+        cylinder(h=wall_anchor_screw_head_height, r1=wall_anchor_screw_head_diameter, r2=wall_anchor_screw_thread_diameter - 2);
     }
     
 }
