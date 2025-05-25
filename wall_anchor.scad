@@ -77,11 +77,13 @@ module wall_anchor_screw_hole (x) {
     left(wall_anchor_width / -2)
     back(thread_depth -1)
     xrot(90)
-    union() {
-        cylinder(d=wall_anchor_screw_thread_diameter, h=thread_depth, center=false, $fn=100);
-        cylinder(h=wall_anchor_screw_head_height, r1=wall_anchor_screw_head_diameter, r2=wall_anchor_screw_thread_diameter - 2);
-    }
     
+    screw (
+        wall_anchor_screw_thread_diameter, 
+        thread_depth, 
+        wall_anchor_screw_head_height, 
+        wall_anchor_screw_thread_diameter
+    );
 }
 
 module wall_anchor_with_nut_cutout_and_text_and_holes () {

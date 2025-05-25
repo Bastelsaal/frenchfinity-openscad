@@ -34,11 +34,12 @@ module screw_plate_screw_hole (effective_height, x, y) {
          ((effective_height / 2) + (screw_plate_height - effective_height) + y),
         -1
     ])
-    union() {
-        cylinder(d=screw_plate_screw_thread_diameter, h=thread_depth, center=false, $fn=100);
-        cylinder(h=screw_plate_screw_head_height, r1=screw_plate_screw_head_diameter, r2=screw_plate_screw_thread_diameter - 2);
-    }
-    
+    screw (
+        screw_plate_screw_thread_diameter, 
+        thread_depth, 
+        screw_plate_screw_head_height, 
+        screw_plate_screw_head_diameter
+    );
 }
 
 module screw_plate_with_screw_holes () {
