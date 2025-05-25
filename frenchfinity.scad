@@ -89,7 +89,5 @@ module render_selected_feature () {
 
 render_selected_feature();
 
-
-// TODO: hint in readme for filename proposal
 // TODO: hinweiß auf bugreports in makerworld und readme
 // TODO: Tests und autobuild auf github?
