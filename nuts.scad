@@ -9,7 +9,7 @@ module frenchfinity_1_0_nut(width, include_filament_hole) {
             ),
             width / 2
         ])
-        cylinder(d=filament_hole_size, h=wall_anchor_width, center=true, $fn=100);
+        cylinder(d=filament_hole_size, h=width, center=true, $fn=100);
     }
     
     module basic_nut () {

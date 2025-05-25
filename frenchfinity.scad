@@ -89,5 +89,4 @@ module render_selected_feature () {
 
 render_selected_feature();
 
-// TODO: hinweiß auf bugreports in makerworld und readme
 // TODO: Tests und autobuild auf github?
