@@ -91,6 +91,9 @@ screwdriver_stick_width = 18;
 screwdriver_inset_height = 10;
 
 
+
+
+
 module screw_driver_positive () {
     module stick () {
         cylinder(
@@ -108,8 +111,12 @@ module screw_driver_positive () {
             center=false,
             $fn=100
         );
+        
+        rotate_extrude(convexity = 10)
+            translate([screwdriver_handle_width / 2, screwdriver_inset_height, 0])
+                circle(r = 1.5, $fn = 100);
     }
-
+    
     union () {
         up(screwdriver_inset_height)
             handle();
@@ -117,21 +124,44 @@ module screw_driver_positive () {
     }
 }   
 
-module screw_driver_clearance() {
+
+
+module screw_driver_clearance(base_height) {
     half_handle_width = screwdriver_handle_width / 2;
     half_stick_width  = screwdriver_stick_width / 2;
     polygon_front_end = half_handle_width + screwdriver_padding_sides;
+    
+    module rounded_corner (point1, point2, radius) {
+        hull() {
+            translate(point1)
+                xrot(90)
+                    cylinder(h = 0.01, r = radius, center = true, $fn = 100);
 
-    linear_extrude(height = base_height, center= true)
-    polygon(
-           [
-               [-half_stick_width,  0],
-               [half_stick_width,   0],
-               [half_handle_width , polygon_front_end],
-               [-half_handle_width, polygon_front_end]
-           ],
-           [[0, 1, 2, 3]]
-    );
+            translate(point2)
+                    xrot(90)
+                        cylinder(h = 0.01, r = radius, center = true, $fn = 100);
+        }
+    }
+
+    union () {
+        linear_extrude(height = base_height, center= false)
+        polygon([
+           [-half_stick_width,  0],
+           [half_stick_width,   0],
+           [half_handle_width , polygon_front_end],
+           [-half_handle_width, polygon_front_end]
+        ]);
+        rounded_corner(
+            [-half_stick_width,  0, base_height],
+            [-half_handle_width, polygon_front_end, base_height], 
+            1.5
+        );
+        rounded_corner(
+            [half_stick_width,  0, base_height],
+            [half_handle_width, polygon_front_end, base_height], 
+            1.5
+        );
+    }
 }
 
 module screw_driver_base (base_height, base_width_and_depth) {
@@ -144,13 +174,13 @@ module screw_driver_base (base_height, base_width_and_depth) {
                     base_height
                 ], 
                 center=true
-            );  
+            ); 
     }
 
 
     difference () {
         raw_base(); 
-        screw_driver_clearance();
+        screw_driver_clearance(base_height);
         screw_driver_positive();
     }
 }
@@ -179,13 +209,11 @@ module screw_driver_holder_without_nut (base_height, base_width_and_depth) {
 }
 
 // TODO: text
-// TODo: absand oben
 // TODO: rundung
 
 module feature_screw_driver () {
     base_height          = screwdriver_bottom_height + screwdriver_inset_height;
     base_width_and_depth = screwdriver_handle_width + (screwdriver_padding_sides * 2);
-    
     
     up(base_height + screwdriver_padding_top - (frenchfinity_1_0_slot_distance_top * 2))
     left(base_width_and_depth/2)
