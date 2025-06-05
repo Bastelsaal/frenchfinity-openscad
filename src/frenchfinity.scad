@@ -208,8 +208,37 @@ module screw_driver_holder_without_nut (base_height, base_width_and_depth) {
     }
 }
 
-// TODO: text
-// TODO: rundung
+module screw_driver_holder_without_nut_and_text (base_height, base_width_and_depth) {
+    text_box_width = 0;
+    text_y         = base_width_and_depth - 13;
+    labels         = hintFileName([
+        final_version_prefix_calculated,
+        [
+            str("bh", screwdriver_bottom_height), 
+            str("hw", screwdriver_handle_width)
+        ],
+        [
+            str("ps", screwdriver_padding_sides),
+            str("pt", screwdriver_padding_top)
+        ],
+        [
+            str("sw", screwdriver_stick_width), 
+            str("ih", screwdriver_inset_height)
+        ],
+    ]);
+    
+    difference() {
+        screw_driver_holder_without_nut(base_height, base_width_and_depth);
+        
+        for (i = [0 : len(labels)-1])
+            labelVertical(
+                labels[i], 
+                text_box_width, 
+                text_y - i * 7,
+                -base_width_and_depth / 2
+            );
+    }
+}
 
 module feature_screw_driver () {
     base_height          = screwdriver_bottom_height + screwdriver_inset_height;
@@ -221,7 +250,7 @@ module feature_screw_driver () {
     mirror([0, 1, 0])
     nut(base_width_and_depth, false);
     
-    screw_driver_holder_without_nut(base_height, base_width_and_depth);
+    screw_driver_holder_without_nut_and_text(base_height, base_width_and_depth);
 }
 
 
