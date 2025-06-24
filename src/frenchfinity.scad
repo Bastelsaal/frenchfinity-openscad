@@ -6,7 +6,7 @@ include <../lib/BOSL2/std.scad>
 //
 
 /* [Feature] */
-feature = "wall_anchor"; //[french_plate, screw_plate, screw_driver, wall_anchor]
+feature = "wall_anchor"; //[box, french_plate, screw_plate, screw_driver, wall_anchor]
 
 /* [Wall anchor] */
 wall_anchor_height = 60;
@@ -33,7 +33,6 @@ screw_plate_screw_head_diameter = 8;
 screw_plate_screw_head_height = 4;
 screw_plate_screw_hole_padding = 40;
 
-
 /* [Screwdriver] */
 screwdriver_bottom_height = 10;
 screwdriver_handle_width = 26;
@@ -41,6 +40,12 @@ screwdriver_padding_sides = 10;
 screwdriver_padding_top = 40;
 screwdriver_stick_width = 18;
 screwdriver_inset_height = 10;
+
+/* [Box] */
+box_width = 50;
+box_depth = 30;
+box_height = 60;
+box_wall_thickness = 2;
 
 /* [Frenchfinity 1.0 slot] */
 frenchfinity_1_0_slot_inner_height = 8.5;
@@ -76,23 +81,25 @@ final_version_prefix_calculated= str("v", version, version_prefix);
 
 include <labels.scad>
 include <nuts.scad>
+include <rounded_corners.scad>
 include <screws.scad>
 
 //
 // Features
 //
 
+include <box.scad>
 include <french_plate.scad>
 include <screw_driver.scad>
 include <screw_plate.scad>
 include <wall_anchor.scad>
-
 
 //
 // Selected feature
 //
 
 module render_selected_feature () {
+    if (feature == "box")          feature_box();
     if (feature == "french_plate") feature_french_plate();
     if (feature == "screw_plate")  feature_screw_plate();
     if (feature == "screw_driver") feature_screw_driver();

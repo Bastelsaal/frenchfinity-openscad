@@ -32,18 +32,6 @@ module screw_driver_clearance(base_height) {
     half_handle_width = screwdriver_handle_width / 2;
     half_stick_width  = screwdriver_stick_width / 2;
     polygon_front_end = half_handle_width + screwdriver_padding_sides;
-    
-    module rounded_corner (point1, point2, radius) {
-        hull() {
-            translate(point1)
-                xrot(90)
-                    cylinder(h = 0.01, r = radius, center = true, $fn = 100);
-
-            translate(point2)
-                    xrot(90)
-                        cylinder(h = 0.01, r = radius, center = true, $fn = 100);
-        }
-    }
 
     union () {
         linear_extrude(height = base_height, center= false)
