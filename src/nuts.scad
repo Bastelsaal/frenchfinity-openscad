@@ -1,4 +1,4 @@
-module frenchfinity_1_0_nut(width, include_filament_hole) {
+module frenchfinity_1_0_nut(width, include_filament_hole) {  
     module filament_hole () {
         yrot(90)
         translate([
@@ -16,7 +16,7 @@ module frenchfinity_1_0_nut(width, include_filament_hole) {
         cube([
             width,
             frenchfinity_1_0_slot_outer_width,
-            frenchfinity_1_0_slot_outer_height     ,
+            frenchfinity_1_0_slot_outer_height,
         ]);       
         translate([
             0,
@@ -32,18 +32,22 @@ module frenchfinity_1_0_nut(width, include_filament_hole) {
             frenchfinity_1_0_slot_inner_height     ,
         ]);
     }
-
-    if (include_filament_hole) {
-        union() {
-            basic_nut();
-            filament_hole();
-        }
-    } else {
-        difference() {
-            basic_nut();
-            filament_hole();
+    
+    module final_basic_nut () {
+        if (include_filament_hole) {
+            union() {
+                basic_nut();
+                filament_hole();
+            }
+        } else {
+            difference() {
+                basic_nut();
+                filament_hole();
+            }
         }
     }
+    
+    final_basic_nut();
 }
 
 module nut(width, include_filament_hole) {
@@ -53,10 +57,9 @@ module nut(width, include_filament_hole) {
     }
 
     if (!include_filament_hole) {
-        back(-frenchfinity_1_0_slot_legacy_tolerance)
             selected_nut();
     }
     else {
-        selected_nut();
+            selected_nut();
     }
 }

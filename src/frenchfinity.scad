@@ -58,11 +58,10 @@ grid_columns = 4;
 /* [Frenchfinity 1.0 slot] */
 frenchfinity_1_0_slot_inner_height     = 8.5;
 frenchfinity_1_0_slot_inner_width      = 4.5;
+// You may have to set this to 6.6 or 6.5 to generate wall anchors compatible to legacy frenchfinity parts
 frenchfinity_1_0_slot_outer_width      = 5.6;
 frenchfinity_1_0_slot_outer_height     = 6.5;
 frenchfinity_1_0_slot_distance_top     = 7.394;
-// Removes width in mm from the nut to improve compatibility to Fusion 360 version of Frenchfinty
-frenchfinity_1_0_slot_legacy_tolerance = 1;
 
 /* [Miscellaneous] */
 filament_hole_size = 1.70;
