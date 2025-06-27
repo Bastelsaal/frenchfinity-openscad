@@ -47,6 +47,16 @@ module frenchfinity_1_0_nut(width, include_filament_hole) {
 }
 
 module nut(width, include_filament_hole) {
-    // TODO: Add support for different nuts
-    frenchfinity_1_0_nut(width, include_filament_hole);
+    module selected_nut () {
+        // TODO: Add support for different nuts
+        frenchfinity_1_0_nut(width, include_filament_hole);
+    }
+
+    if (!include_filament_hole) {
+        back(-frenchfinity_1_0_slot_legacy_tolerance)
+            selected_nut();
+    }
+    else {
+        selected_nut();
+    }
 }
