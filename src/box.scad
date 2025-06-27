@@ -51,43 +51,6 @@ module empty_box_with_nut_and_text () {
             );
     }
 }
-
-  
-
-    module feature_box_rounded_corners () {
-        module left_right () {
-            rounded_corner(
-                [box_wall_thickness, box_wall_thickness,                   box_height],
-                [box_wall_thickness, box_depth - box_wall_thickness, box_height], 
-                1
-            );
-        }
-        
-        module front_back () {
-             rounded_corner(
-                [
-                    box_width - box_wall_thickness, 
-                    box_depth - box_wall_thickness,                   
-                    box_height
-                ],
-                [
-                    box_wall_thickness,
-                    box_depth - box_wall_thickness,
-                    box_height
-                ], 
-                1
-            );
-        }
-    
-        union() {
-            left_right();
-            left(-box_width + (box_wall_thickness * 2))
-                left_right();
-            front_back();
-            back(-box_depth  + (box_wall_thickness * 2))
-                front_back();
-        }
-    }
     
 module feature_box () {
     module box_with_wall_thickness_cut_from_top (){
