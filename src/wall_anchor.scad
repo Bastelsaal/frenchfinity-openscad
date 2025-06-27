@@ -70,7 +70,7 @@ module wall_anchor_with_nut_cutout_and_text () {
 }
 
 module wall_anchor_screw_hole (x) {
-    thread_depth = wall_anchor_depth - frenchfinity_1_0_slot_total_width_calculated + 2;
+    thread_depth = wall_anchor_depth - frenchfinity_1_0_slot_total_width_calculated + 1;
     
     left(x)
     up(wall_anchor_height - frenchfinity_1_0_slot_distance_top - (frenchfinity_1_0_slot_outer_height / 2))
@@ -93,6 +93,7 @@ module wall_anchor_with_nut_cutout_and_text_and_holes () {
         difference() {
             wall_anchor_with_nut_cutout_and_text();
             wall_anchor_screw_hole(0);
+            
             for (i = [0 : screw_holes-1]) {
                 wall_anchor_screw_hole(wall_anchor_screw_distance * i);
                 wall_anchor_screw_hole(wall_anchor_screw_distance * -i);
