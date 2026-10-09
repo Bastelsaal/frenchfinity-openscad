@@ -6,7 +6,7 @@ include <../lib/BOSL2/std.scad>
 //
 
 /* [Feature] */
-feature = "wall_anchor"; //[box, french_plate, grid, screw_plate, screw_driver, wall_anchor]
+feature = "tray"; //[box, french_plate, grid, screw_plate, screw_driver, wall_anchor, bin, tray]
 
 /* [Wall anchor] */
 wall_anchor_height                = 60;
@@ -23,6 +23,9 @@ wall_anchor_screw_distance        = 30;
 french_plate_width                = 100;
 french_plate_height               = 100;
 french_plate_depth                = 20;
+french_plate_front_channel_count  = 3; // [0:10]
+french_plate_back_connector_count = 1; // [0:10]
+french_plate_slot_spacing         = 30;
 
 /* [Screw plate] */
 screw_plate_width                 = 160;
@@ -47,6 +50,13 @@ box_depth          = 30;
 box_height         = 60;
 box_wall_thickness = 2;
 
+/* [ Bin] */
+bin_width      = 60;
+bin_depth      = 80;
+bin_height     = 50;
+bin_wall       = 2.5;
+lip_height     = 30; // How high the front wall is
+
 /* [Grid] */
 grid_width = 200;
 grid_depth = 50;
@@ -55,6 +65,13 @@ grid_wall_thickness = 2;
 grid_rows = 4;
 grid_columns = 4;
 
+/* [Simple Tray] */
+tray_width           = 150; // [50:400]
+tray_depth           = 60;  // [30:200]
+tray_height          = 30;  // [15:100]
+tray_wall_thickness  = 2;   // [1.2:0.4:5]
+tray_corner_radius   = 5;   // [1:20]
+
 /* [Frenchfinity 1.0 slot] */
 frenchfinity_1_0_slot_inner_height     = 8.5;
 frenchfinity_1_0_slot_inner_width      = 4.5;
@@ -62,6 +79,11 @@ frenchfinity_1_0_slot_inner_width      = 4.5;
 frenchfinity_1_0_slot_outer_width      = 5.6;
 frenchfinity_1_0_slot_outer_height     = 6.5;
 frenchfinity_1_0_slot_distance_top     = 7.394;
+
+/* [Tolerances] */
+// Amount to shrink the connector to make it slide easily (in mm).
+// 0.2 is standard. If too tight, try 0.25 or 0.3.
+connector_tolerance = 0.2; // [0:0.05:0.5]
 
 /* [Miscellaneous] */
 filament_hole_size = 1.70;
@@ -103,6 +125,8 @@ include <grid.scad>
 include <screw_driver.scad>
 include <screw_plate.scad>
 include <wall_anchor.scad>
+include <bin.scad>
+include <tray.scad>
 
 
 
@@ -125,6 +149,10 @@ module render_selected_feature () {
     if (feature == "screw_plate")  feature_screw_plate();
     if (feature == "screw_driver") feature_screw_driver();
     if (feature == "wall_anchor")  feature_wall_anchor();
+    if (feature == "bin")    feature_bin();
+    if (feature == "tray")          feature_tray();
+   
 }
 
 render_selected_feature();
+

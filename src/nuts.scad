@@ -1,4 +1,17 @@
-module frenchfinity_1_0_nut(width, include_filament_hole) {  
+module frenchfinity_1_0_nut(width, include_filament_hole) {
+    
+    // --- TOLERANCE LOGIC ---
+    // If include_filament_hole is true, we are cutting a slot (Female), so we want EXACT size (tolerance 0).
+    // If include_filament_hole is false, we are printing a connector (Male), so we SHRINK it by tolerance.
+    // We default to 0 if the variable is missing to prevent errors.
+    tol = (include_filament_hole) ? 0 : (is_undef(connector_tolerance) ? 0 : connector_tolerance);
+
+    // We shrink the HEIGHT (Z) heavily to allow sliding.
+    // We shrink the THICKNESS (Y) slightly to allow the hook to seat.
+    eff_outer_h = frenchfinity_1_0_slot_outer_height - tol;
+    eff_inner_h = frenchfinity_1_0_slot_inner_height - tol;
+    eff_inner_w = frenchfinity_1_0_slot_inner_width - (tol / 2); // Shrink depth less aggressively
+
     module filament_hole () {
         yrot(90)
         translate([
@@ -13,23 +26,23 @@ module frenchfinity_1_0_nut(width, include_filament_hole) {
     }
     
     module basic_nut () {
+        // 1. The Neck (Base Block)
         cube([
             width,
             frenchfinity_1_0_slot_outer_width,
-            frenchfinity_1_0_slot_outer_height,
-        ]);       
+            eff_outer_h // Shrink height
+        ]);        
+        
+        // 2. The Head (Locking Lip)
         translate([
             0,
             frenchfinity_1_0_slot_outer_width,
-            (
-                frenchfinity_1_0_slot_outer_height -
-                frenchfinity_1_0_slot_inner_height 
-            ) / 2
+            (eff_outer_h - eff_inner_h) / 2 // Automatically centers the lip vertically based on new heights
         ])
         cube([
             width,
-            frenchfinity_1_0_slot_inner_width,
-            frenchfinity_1_0_slot_inner_height     ,
+            eff_inner_w, // Shrink depth
+            eff_inner_h  // Shrink height
         ]);
     }
     
@@ -52,14 +65,8 @@ module frenchfinity_1_0_nut(width, include_filament_hole) {
 
 module nut(width, include_filament_hole) {
     module selected_nut () {
-        // TODO: Add support for different nuts
         frenchfinity_1_0_nut(width, include_filament_hole);
     }
 
-    if (!include_filament_hole) {
-            selected_nut();
-    }
-    else {
-            selected_nut();
-    }
+    selected_nut();
 }
