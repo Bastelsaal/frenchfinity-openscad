@@ -1,0 +1,370 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Frenchfinity 2.0 - MakerWorld description</title>
+<style>
+    :root {
+        --red: #ff0042;
+        --red-dark: #c80c3a;
+        --ink: #0a0101;
+        --text: #2b2b2e;
+        --muted: #6b6b73;
+        --line: #e7e5e2;
+        --paper: #ffffff;
+        --sand: #f6f4f1;
+    }
+
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        background: var(--sand);
+        color: var(--text);
+        font: 16px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+
+    /* Toolbar: only for preparing the description, it is not copied. */
+    .toolbar {
+        position: sticky;
+        top: 0;
+        z-index: 1;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 12px 20px;
+        padding: 14px max(16px, calc((100% - 860px) / 2));
+        background: var(--ink);
+        color: #fff;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .toolbar strong {
+        font-size: 15px;
+    }
+
+    .toolbar p {
+        flex: 1 1 320px;
+        margin: 0;
+        color: #c9c6c4;
+        font-size: 13px;
+        line-height: 1.45;
+    }
+
+    .toolbar code {
+        color: #fff;
+    }
+
+    .copy-button {
+        padding: 10px 18px;
+        border: 0;
+        border-radius: 999px;
+        background: var(--red);
+        color: #fff;
+        font: 600 15px/1 inherit;
+        cursor: pointer;
+    }
+
+    .copy-button:hover {
+        background: var(--red-dark);
+    }
+
+    .copy-button:focus-visible {
+        outline: 3px solid #fff;
+        outline-offset: 2px;
+    }
+
+    /* The description as it will look on MakerWorld (roughly). */
+    .description {
+        max-width: 860px;
+        margin: 32px auto 64px;
+        padding: 40px 48px;
+        background: var(--paper);
+        border-radius: 16px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+    }
+
+    @media (max-width: 640px) {
+        .description {
+            margin: 0;
+            padding: 24px 16px;
+            border-radius: 0;
+        }
+    }
+
+    .description img {
+        display: block;
+        max-width: 100%;
+        height: auto;
+        margin: 24px auto;
+        border-radius: 12px;
+    }
+
+    .description h1 {
+        margin: 0 0 8px;
+        color: var(--ink);
+        font-size: 34px;
+        line-height: 1.15;
+    }
+
+    .description h2 {
+        margin: 40px 0 12px;
+        padding-top: 24px;
+        border-top: 1px solid var(--line);
+        color: var(--ink);
+        font-size: 24px;
+        line-height: 1.25;
+    }
+
+    .description h3 {
+        margin: 24px 0 6px;
+        color: var(--ink);
+        font-size: 18px;
+    }
+
+    .description p,
+    .description li {
+        margin: 0 0 10px;
+    }
+
+    .description ul,
+    .description ol {
+        padding-left: 24px;
+    }
+
+    .description a {
+        color: var(--red-dark);
+    }
+
+    .description .lead {
+        font-size: 20px;
+        line-height: 1.5;
+        color: var(--ink);
+    }
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+    <strong>MakerWorld-Beschreibung · Frenchfinity 2.0</strong>
+    <p>
+        „Beschreibung kopieren“ und im MakerWorld-Editor einfügen. Bilder zeigen beim Kopieren auf
+        <code>docs/images/</code> im GitHub-Master, die Links funktionieren also erst nach dem Merge. Sonst
+        <code>wall.png</code> und <code>parts.png</code> per Hand hochladen. Deine Bambu-Studio-Screenshots
+        (Schnitt, Objekt-Einstellungen) wieder unter „Infill“ einsetzen.
+    </p>
+    <button class="copy-button" type="button" id="copy">Beschreibung kopieren</button>
+</div>
+
+<article class="description" id="description">
+
+<h1>Frenchfinity 2.0 – the customizable French cleat system</h1>
+
+<p class="lead"><strong>One wall. 45 parts. A holder that fits every tool you own.</strong></p>
+
+<p>
+    Stop rebuilding French cleat holders. <strong>Frenchfinity</strong> is the missing subsystem for your
+    French cleat wall: printed wall anchors hook onto your wooden cleats, every holder slides in from the
+    side and locks with a piece of leftover filament. <strong>Frenchfinity 2.0</strong> puts the whole
+    system into one customizer: pick a part, enter the size of your tool, print. Done.
+</p>
+
+<img src="images/wall.png" data-remote="https://raw.githubusercontent.com/Bastelsaal/frenchfinity-openscad/master/docs/images/wall.png" alt="Holders slid into a printed wall anchor on a wooden French cleat">
+
+<h2>🔥 What's new in 2.0</h2>
+
+<ul>
+    <li><strong>45 parts in one customizer.</strong> Every Frenchfinity 1.0 part, plus a bin, a tray, a welding table plate and a French plate with several slots.</li>
+    <li><strong>Made for your tool.</strong> Enter the size of your screwdriver, file or pliers and the holder fits it exactly. No more holders that almost fit.</li>
+    <li><strong>Fits Frenchfinity 1.0.</strong> The slot profile matches the original parts exactly, so old and new parts mix, and so do wooden anchors milled with an M5 T-slot cutter.</li>
+    <li><strong>Never guess again.</strong> Every part has its parameters engraved, and the customizer proposes a matching file name, so reprinting a part takes seconds.</li>
+    <li><strong>Open source and tested.</strong> All 45 parts are rendered and checked automatically on every change.</li>
+</ul>
+
+<h2>🧱 How it works</h2>
+
+<ol>
+    <li><strong>Wall:</strong> screw wooden French cleats to your wall. No cleats? Use the screw plate, the IKEA Skadis plate or the welding table plate instead.</li>
+    <li><strong>Anchor:</strong> hang printed wall anchors onto the cleats. Their front carries the T-slot, a few screws fix them for good.</li>
+    <li><strong>Holder:</strong> generate a holder for your tool, print it and slide its T-tongue into the slot from the side.</li>
+    <li><strong>Lock:</strong> press a piece of 1.75 mm filament into the small channel between tongue and slot. Zero play.</li>
+</ol>
+
+<h2>🛠️ How to use the customizer</h2>
+
+<ol>
+    <li>Click <strong>Customize</strong> on this page.</li>
+    <li>Pick your part in the section <strong>Part</strong>.</li>
+    <li>Enter the size of your tool in the section of that part. All sizes are in millimeters.</li>
+    <li>Generate, download and print.</li>
+</ol>
+
+<p>
+    Tip: holders that are too tight? Raise <strong>print_tolerance</strong> a little (default 0.12 mm per
+    side). Want to mix with parts printed with the first OpenSCAD version of this customizer (labeled
+    <strong>v1scad</strong>)? Choose the slot profile <strong>openscad_v1_legacy</strong>.
+</p>
+
+<h2>📦 45 parts</h2>
+
+<img src="images/parts.png" data-remote="https://raw.githubusercontent.com/Bastelsaal/frenchfinity-openscad/master/docs/images/parts.png" alt="All 45 parts of Frenchfinity 2.0">
+
+<h3>Wall anchors, plates and adapters</h3>
+<p>Wall anchor, French plate, screw plate, IKEA Skadis plate, welding table plate, Nussbaum SL smart lift plate, custom base adapter, angle adapter</p>
+
+<h3>Tool holders</h3>
+<p>Allen key, bits, caliper, crowbar, file, hammer, hook, lifting clamps, locksmith corner, meter stick, pliers, rectangular tools, ring wrenches, round tools, screwdriver, small hanging hole, T-handle, triangle top, wrenches</p>
+
+<h3>Storage</h3>
+<p>Bin, box, spray cans, GluBot, grid, Gridfinity adapter, sandpaper, tablet, tape, toilet paper, tray</p>
+
+<h3>Made for one product</h3>
+<p>Einhell Power X-Change battery and single charger, Wolfcraft Accumobil drilling aid, Wolfcraft ES 22 corner clamp</p>
+
+<h3>Workshop helpers</h3>
+<p>Router guide, tongue cleaner, letters for your wall</p>
+
+<h2>🖨️ Print recommendations</h2>
+
+<p>We printed all our test parts on a Bambu Lab X1 Carbon with the preset <strong>0.28 mm Extra Draft</strong>.</p>
+
+<ul>
+    <li><strong>Supports:</strong> most parts need a little support for the groove. Depending on the part, printing it rotated by 90° avoids supports completely.</li>
+    <li><strong>Regular, not tree:</strong> use regular supports instead of tree supports, the thin trees tend to fail on high holders. One or two raft layers help, too.</li>
+    <li><strong>Build plate only:</strong> enable support on the build plate only, otherwise the engraved labels and the screw holes get useless support.</li>
+    <li><strong>Support material:</strong> with PLA, the supports came off more easily with “Support for PLA” than with “Support for PLA/PETG”.</li>
+    <li><strong>Infill:</strong> 10 % is enough for most parts. For more strength, cut the model in two in Bambu Studio (enable “cut to parts”) and raise the infill of the part with the tongue to 90 %.</li>
+</ul>
+
+<h2>🧰 What you need</h2>
+
+<ul>
+    <li><strong>Printed parts only:</strong> no tools at all.</li>
+    <li><strong>Wooden wall anchors:</strong> an <a href="https://amzn.to/3xxiimd">M5 T-slot cutter</a>. The guide sets up router and table saw, the tongue cleaner cleans the milled slots.</li>
+    <li><strong>Fixing printed anchors:</strong> <a href="https://amzn.to/3zphU9Q">2.0 x 20 mm screws</a>.</li>
+    <li><strong>Sanding the tongue:</strong> <a href="https://amzn.to/3zuvetv">sanding sponges</a>.</li>
+    <li><strong>Labels:</strong> we use the <a href="https://amzn.to/4erY64n">Brother PT-P300BT label printer</a> and <a href="https://amzn.to/3WyWaAr">tesa strips</a>, because printed labels do not stick too well.</li>
+</ul>
+
+<p><em>The links above are affiliate links.</em></p>
+
+<h2>♻️ Goodbye, filament leftovers</h2>
+
+<p>
+    Frenchfinity loves leftovers. Print a small holder for one of your tools, and if the spool is too
+    empty even for that, use the last meters to lock your holders: press a short piece into the 1.7 mm
+    channel between tongue and slot.
+</p>
+
+<h2>💬 Open source</h2>
+
+<p>
+    Frenchfinity 2.0 is open source on GitHub:
+    <a href="https://github.com/Bastelsaal/frenchfinity-openscad">github.com/Bastelsaal/frenchfinity-openscad</a>.
+    Missing a holder or found a bug? <a href="https://github.com/Bastelsaal/frenchfinity-openscad/issues">Open an issue</a>,
+    pull requests are welcome. Thanks to JGoodwillieV for the bin, the tray and the French plate with several slots.
+</p>
+
+<p>
+    New to Frenchfinity? <a href="https://www.youtube.com/watch?v=pbA6Cf03Jpg">Watch our video</a> and visit
+    <a href="https://frenchfinity.xyz/">frenchfinity.xyz</a>.
+</p>
+
+<h2>📄 License</h2>
+
+<p>
+    Frenchfinity is licensed under the
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License (CC BY-NC-SA 4.0)</a>.
+    You may use it in your workshop even if your workshop produces commercial products.
+</p>
+
+<p>You are free to:</p>
+<ul>
+    <li><strong>Share</strong> – copy and redistribute the material in any medium or format</li>
+    <li><strong>Adapt</strong> – remix, transform, and build upon the material</li>
+</ul>
+
+<p>Under the following terms:</p>
+<ul>
+    <li><strong>Attribution</strong> – You must give appropriate credit, provide a link to the license, and indicate if changes were made. You may do so in any reasonable manner, but not in any way that suggests the licensor endorses you or your use.</li>
+    <li><strong>NonCommercial</strong> – You may not use the material for commercial purposes.</li>
+    <li><strong>ShareAlike</strong> – If you remix, transform, or build upon the material, you must distribute your contributions under the same license as the original.</li>
+</ul>
+
+</article>
+
+<script>
+    // Copies the description as rich text, with the images pointing to GitHub, so it can be pasted
+    // into the MakerWorld editor.
+    (function () {
+        var button = document.getElementById('copy');
+        var label = button.textContent;
+
+        function descriptionHtml() {
+            var copy = document.getElementById('description').cloneNode(true);
+
+            copy.querySelectorAll('img[data-remote]').forEach(function (image) {
+                image.setAttribute('src', image.getAttribute('data-remote'));
+                image.removeAttribute('data-remote');
+            });
+
+            return copy;
+        }
+
+        function copyWithSelection(node) {
+            var holder = document.createElement('div');
+            holder.style.position = 'fixed';
+            holder.style.left = '-10000px';
+            holder.appendChild(node);
+            document.body.appendChild(holder);
+
+            var range = document.createRange();
+            range.selectNodeContents(node);
+
+            var selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+
+            var copied = document.execCommand('copy');
+
+            selection.removeAllRanges();
+            document.body.removeChild(holder);
+
+            return copied;
+        }
+
+        function done(copied) {
+            button.textContent = copied ? 'Kopiert ✓' : 'Kopieren fehlgeschlagen';
+            setTimeout(function () {
+                button.textContent = label;
+            }, 2500);
+        }
+
+        button.addEventListener('click', function () {
+            var node = descriptionHtml();
+            var html = node.innerHTML;
+            var text = node.innerText || node.textContent;
+
+            if (navigator.clipboard && window.ClipboardItem) {
+                navigator.clipboard.write([
+                    new ClipboardItem({
+                        'text/html': new Blob([html], {type: 'text/html'}),
+                        'text/plain': new Blob([text], {type: 'text/plain'})
+                    })
+                ]).then(function () {
+                    done(true);
+                }, function () {
+                    done(copyWithSelection(node));
+                });
+            } else {
+                done(copyWithSelection(node));
+            }
+        });
+    })();
+</script>
+
+</body>
+</html>
