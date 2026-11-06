@@ -1,0 +1,100 @@
+name: Build
+
+# Builds the single file for the MakerWorld customizer (build/build.sh) and renders every part from
+# the sources and from that file (build/validate.sh). Every run keeps the file as a download, a
+# pushed tag starting with "v" (e.g. v2.0.0) publishes it as a GitHub release.
+
+on:
+  push:
+    branches: ['**']
+    tags: ['v*']
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: ${{ !startsWith(github.ref, 'refs/tags/') }}
+
+jobs:
+  build:
+    name: Build and validate
+    # Pull requests from branches of this repository are already built by their push.
+    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name != github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    # Official image with a current development snapshot of OpenSCAD (Manifold backend). MakerWorld
+    # renders with a recent snapshot as well.
+    container: openscad/openscad:dev
+    defaults:
+      run:
+        shell: bash
+    outputs:
+      file-name: ${{ steps.build.outputs.name }}
+    steps:
+      - name: Install git
+        # actions/checkout needs git to fetch the BOSL2 submodule.
+        run: apt-get update && apt-get install -y --no-install-recommends git ca-certificates
+
+      - uses: actions/checkout@v7
+        with:
+          submodules: recursive
+
+      - name: Show the OpenSCAD version
+        run: openscad --version
+
+      - name: Build the MakerWorld file
+        id: build
+        run: |
+          name="$(basename "$(build/build.sh)")"
+          echo "name=$name" >> "$GITHUB_OUTPUT"
+          echo "file=dist/$name" >> "$GITHUB_OUTPUT"
+          echo "Built dist/$name"
+
+      - name: Render every part from the sources
+        run: build/validate.sh
+
+      - name: Render every part from the MakerWorld file
+        run: build/validate.sh "${{ steps.build.outputs.file }}"
+
+      - name: Keep the MakerWorld file
+        uses: actions/upload-artifact@v7
+        with:
+          path: ${{ steps.build.outputs.file }}
+          # Downloads the .scad file itself instead of a zip file. The artifact is named like the file.
+          archive: false
+          if-no-files-found: error
+
+      - name: Keep the render logs
+        if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: render-logs
+          path: dist/validation/*.log
+
+  release:
+    name: Publish the release
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v8
+        with:
+          name: ${{ needs.build.outputs.file-name }}
+          path: artifact
+
+      - name: Create the release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ github.ref_name }}
+        run: |
+          file="$(find artifact -name '*.scad' | head -n 1)"
+          cp "$file" "frenchfinity-${TAG}.scad"
+          gh release create "$TAG" "frenchfinity-${TAG}.scad" \
+            --repo "$GITHUB_REPOSITORY" \
+            --title "Frenchfinity ${TAG}" \
+            --generate-notes
