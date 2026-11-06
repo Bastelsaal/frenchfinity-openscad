@@ -136,6 +136,55 @@ module ff_rounded_pocket(x0, y0, width, depth, z_bottom, z_top, r) {
     }
 }
 
+//
+// Socket for the printable bin labels by Pred (https://www.printables.com/model/592545), with the
+// sizes of the Pred socket in gridfinity-extended-openscad: a pocket for the 0.8 mm thin label and,
+// on both short sides, slots for its tabs below a cover. The label is bent slightly, pressed into the
+// pocket and its tabs snap into the slots.
+//
+
+ff_pred_label_pocket_depth  = 11.35;   // across the label
+ff_pred_label_pocket_height = 1;
+ff_pred_label_cover         = 1.2;     // material above the tab slots
+ff_pred_label_tab_slot      = [1, 6.7];
+ff_pred_label_rounding      = 1;
+ff_pred_label_notch         = [6, 1.5];
+
+function ff_pred_label_pocket_width(units) = 42 * units - 5.8;
+function ff_pred_label_socket_width(units) = ff_pred_label_pocket_width(units) + 2 * ff_pred_label_tab_slot[0];
+
+// How deep the socket reaches below the surface.
+function ff_pred_label_socket_depth() = ff_pred_label_cover + ff_pred_label_pocket_height;
+
+// How much room a socket takes across the label, including the notch to lever the label out.
+function ff_pred_label_socket_length() = ff_pred_label_pocket_depth + 2 * ff_pred_label_notch[1];
+
+// Cut body of a socket for a label `units` Gridfinity units wide, centered on the origin with the
+// surface at z = 0. The label runs along x, the notch to lever it out is on its +y edge.
+module ff_pred_label_socket(units) {
+    width   = ff_pred_label_pocket_width(units);
+    depth   = ff_pred_label_pocket_depth;
+    slot    = ff_pred_label_tab_slot;
+    notch   = ff_pred_label_notch;
+    floor_z = -ff_pred_label_socket_depth();
+
+    union() {
+        // Open pocket for the label
+        translate([0, 0, floor_z])
+            linear_extrude(height = -floor_z + 1)
+                rect([width, depth], rounding = ff_pred_label_rounding, $fn = 24);
+
+        // Slots for the tabs, below the cover
+        translate([-(width / 2 + slot[0]), -slot[1] / 2, floor_z])
+            cube([width + 2 * slot[0], slot[1], ff_pred_label_pocket_height]);
+
+        // Notch to lever the label out
+        translate([0, depth / 2, floor_z])
+            linear_extrude(height = -floor_z + 1)
+                rect([notch[0], 2 * notch[1]], rounding = notch[1] - ff_eps, $fn = 24);
+    }
+}
+
 // Adds the tongue to a holder. children() is the holder body with its back face in the mounting
 // plane and its top edge at z = top. The tongue runs from x = 0 to x = width.
 module ff_holder(width, top) {

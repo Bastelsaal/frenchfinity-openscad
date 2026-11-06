@@ -4,16 +4,35 @@
 // A 3D printed French cleat. Its bevel hooks onto the wooden cleats of the wall, the slot along its
 // front face carries the holders. Countersunk holes in the back wall of the slot (one per
 // `wall_anchor_screw_distance` mm of width, two for the default anchor) allow screwing it to the wall.
+// Optionally its top face carries sockets for the printable Gridfinity bin labels by Pred, spread
+// evenly along the anchor, with the notch to lever a label out towards the front.
 //
+
+// Minimum material between the label sockets and to the ends and faces of the anchor.
+wall_anchor_pred_label_margin = 2;
 
 function wall_anchor_front_height() = wall_anchor_height - wall_anchor_depth * tan(wall_anchor_bottom_angle);
 
-function wall_anchor_params() = [
-    ["w", wall_anchor_width],
-    ["h", wall_anchor_height],
-    ["d", wall_anchor_depth],
-    ["a", wall_anchor_bottom_angle]
-];
+function wall_anchor_params() = concat(
+    [
+        ["w", wall_anchor_width],
+        ["h", wall_anchor_height],
+        ["d", wall_anchor_depth],
+        ["a", wall_anchor_bottom_angle]
+    ],
+    wall_anchor_pred_labels > 0
+        ? [["pl", wall_anchor_pred_labels], ["plu", wall_anchor_pred_label_units]]
+        : []
+);
+
+// Sockets for Pred labels in the top face, centered between the front and the back face.
+module wall_anchor_pred_label_sockets() {
+    count = wall_anchor_pred_labels;
+
+    for (i = [0 : count - 1])
+        translate([(i + 0.5) * wall_anchor_width / count, -wall_anchor_depth / 2, wall_anchor_height])
+            ff_pred_label_socket(wall_anchor_pred_label_units);
+}
 
 // Side profile in the (y, z) plane: the back face lies against the wall, the front face is the
 // mounting plane.
@@ -71,6 +90,19 @@ module feature_wall_anchor() {
         wall_anchor_depth >= ff_slot_depth() + wall_anchor_screw_head_height + 2,
         "wall_anchor_depth is too small for the slot."
     );
+    assert(
+        wall_anchor_pred_labels == 0 || wall_anchor_depth >= ff_pred_label_socket_length() + 2 * wall_anchor_pred_label_margin,
+        str("wall_anchor_depth must be at least ", ff_pred_label_socket_length() + 2 * wall_anchor_pred_label_margin, " mm for Pred labels.")
+    );
+    assert(
+        wall_anchor_pred_labels == 0
+            || wall_anchor_width / wall_anchor_pred_labels
+                >= ff_pred_label_socket_width(wall_anchor_pred_label_units) + 2 * wall_anchor_pred_label_margin,
+        str(
+            "The anchor is too narrow for ", wall_anchor_pred_labels, " Pred labels of ", wall_anchor_pred_label_units,
+            "U: increase wall_anchor_width or use fewer or narrower labels."
+        )
+    );
 
     params = wall_anchor_params();
 
@@ -84,6 +116,9 @@ module feature_wall_anchor() {
 
         if (wall_anchor_render_screw_holes)
             wall_anchor_screw_holes();
+
+        if (wall_anchor_pred_labels > 0)
+            wall_anchor_pred_label_sockets();
 
         wall_anchor_label(params);
     }

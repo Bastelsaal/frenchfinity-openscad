@@ -75,6 +75,10 @@ wall_anchor_screw_thread_diameter = 2; // [1:0.1:5]
 wall_anchor_screw_head_diameter = 4.3; // [2:0.1:9]
 // Height of the countersunk screw heads.
 wall_anchor_screw_head_height = 2; // [0.5:0.1:5]
+// Sockets in the top face for the printable Gridfinity bin labels by Pred (0: none).
+wall_anchor_pred_labels = 0; // [0:1:10]
+// Width of the Pred labels in Gridfinity units.
+wall_anchor_pred_label_units = 1; // [1:1U, 2:2U, 3:3U]
 
 /* [French plate] */
 // Width of the plate along the wall.

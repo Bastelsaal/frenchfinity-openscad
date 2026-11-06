@@ -99,7 +99,7 @@ parameter `feature`. Parts marked <sup>new</sup> did not exist in Frenchfinity 1
       <img src="docs/images/parts/wall_anchor.png" width="250" alt="Wall anchor"><br>
       <strong>Wall anchor</strong><br>
       <code>wall_anchor</code><br>
-      <sub>3D printed French cleat with the slot, hooks onto the wooden cleats of your wall</sub>
+      <sub>3D printed French cleat with the slot, hooks onto the wooden cleats of your wall, optionally with sockets for the printable labels by Pred</sub>
     </td>
     <td align="center" valign="top" width="33%">
       <img src="docs/images/parts/french_plate.png" width="250" alt="French plate"><br>
